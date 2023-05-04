@@ -3,6 +3,7 @@ package com.rm.controller;
 import com.rm.entity.User;
 import com.rm.services.UserService;
 import jakarta.annotation.PostConstruct;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,10 +18,10 @@ public class UserController {
         this.userService = userService;
     }
 
-    /*@PostConstruct
+    @PostConstruct
     public void initRolesAndUsers(){
-        userService.initRolesAndUser();
-    }*/
+        userService.initRoleAndUser();
+    }
 
     @PostMapping({"/registerNewUser"})
     public User registerNewUser(@RequestBody  User user){
@@ -28,11 +29,13 @@ public class UserController {
     }
 
     @GetMapping({"/forAdmin"})
+    @PreAuthorize("hasRole('Admin')")
     public String forAdmin(){
         return "This URL is only accessible to the admin";
     }
 
     @GetMapping({"/forStudent"})
+    @PreAuthorize("hasRole('Student')")
     public String forStudent(){
         return "This URL is only accessible to the student";
     }
