@@ -1,6 +1,6 @@
 package com.rm.services;
 
-import com.rm.dao.UserRepository;
+import com.rm.repository.UserRepository;
 import com.rm.entity.JwtRequest;
 import com.rm.entity.JwtResponse;
 import com.rm.entity.User;

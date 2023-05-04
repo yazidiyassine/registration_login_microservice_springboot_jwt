@@ -44,8 +44,8 @@ public class WebSecurityConfiguration  {
         http.cors();
         http.csrf().disable()
                 .authorizeHttpRequests().requestMatchers("/authenticate","/registerNewUser").permitAll()
-                .requestMatchers("/forAdmin").hasRole("Admin")
-                .requestMatchers("/forStudent").hasRole("Student")
+                .requestMatchers("/forAdmin").hasRole("ADMIN")
+                .requestMatchers("/forStudent").hasRole("STUDENT")
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)

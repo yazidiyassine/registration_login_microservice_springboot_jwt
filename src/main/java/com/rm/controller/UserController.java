@@ -18,10 +18,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostConstruct
-    public void initRolesAndUsers(){
-        userService.initRoleAndUser();
-    }
 
     @PostMapping({"/registerNewUser"})
     public User registerNewUser(@RequestBody  User user){
@@ -29,13 +25,11 @@ public class UserController {
     }
 
     @GetMapping({"/forAdmin"})
-    @PreAuthorize("hasRole('Admin')")
     public String forAdmin(){
         return "This URL is only accessible to the admin";
     }
 
     @GetMapping({"/forStudent"})
-    @PreAuthorize("hasRole('Student')")
     public String forStudent(){
         return "This URL is only accessible to the student";
     }

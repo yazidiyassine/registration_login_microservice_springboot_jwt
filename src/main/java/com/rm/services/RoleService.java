@@ -1,6 +1,6 @@
 package com.rm.services;
 
-import com.rm.dao.RoleRepository;
+import com.rm.repository.RoleRepository;
 import com.rm.entity.Role;
 import org.springframework.stereotype.Service;
 
