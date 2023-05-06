@@ -28,10 +28,10 @@ public class UserService {
 
     public User registerNewUser(User user){
 
-        Role role = roleRepository.findById("Student").get();
-
+        Optional<Role> OpRole = roleRepository.findById("Student");
+        Role existingRole = OpRole.orElseThrow(() -> new RuntimeException("Role not found"));
         Set<Role> roles = new HashSet<>();
-        roles.add(role);
+        roles.add(existingRole);
         user.setRole(roles);
         user.setUserPassword(getEncodedPassword(user.getUserPassword()));
         return userRepository.save(user);
@@ -55,7 +55,8 @@ public class UserService {
 
        existingUser.setUserName(user.getUserName());
        existingUser.setUserFirstName(user.getUserFirstName());
-       existingUser.setUserPassword(user.getUserPassword());
+       existingUser.setUserLastName(user.getUserLastName());
+       existingUser.setUserPassword(passwordEncoder.encode(user.getUserPassword()));
 
        return userRepository.save(existingUser);
    }
