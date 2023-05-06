@@ -8,6 +8,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -39,4 +41,22 @@ public class UserService {
         return passwordEncoder.encode(password);
     }
 
+    public List<User> getUsers(){
+        return userRepository.findAllUsersExcludingAdmin();
+    }
+
+   public void deleteUser(int id){
+        userRepository.deleteById(id);
+   }
+
+   public User updateUser(User user){
+       Optional<User> optionalUser = userRepository.findById(user.getApogee());
+       User existingUser = optionalUser.orElseThrow(() -> new RuntimeException("User not found"));
+
+       existingUser.setUserName(user.getUserName());
+       existingUser.setUserFirstName(user.getUserFirstName());
+       existingUser.setUserPassword(user.getUserPassword());
+
+       return userRepository.save(existingUser);
+   }
 }

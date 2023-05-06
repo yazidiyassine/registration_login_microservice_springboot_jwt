@@ -39,13 +39,13 @@ public class JwtService implements UserDetailsService {
         UserDetails userDetails = loadUserByUsername(userName);
         String newGeneratedToken = jwtUtil.generateToken(userDetails);
 
-        User user = userRepository.findById(userName).get();
+        User user = userRepository.readByUserName(userName);
         return new JwtResponse(user, newGeneratedToken);
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findById(username).get();
+        User user = userRepository.readByUserName(username);
         if (user == null) {
             throw new UsernameNotFoundException("User not found with username: " + username);
         }

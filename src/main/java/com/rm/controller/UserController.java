@@ -4,12 +4,12 @@ import com.rm.entity.User;
 import com.rm.services.UserService;
 import jakarta.annotation.PostConstruct;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
+@CrossOrigin(allowedHeaders = "*", origins = {"http://localhost:4200/*"})
 public class UserController {
 
     private final UserService userService;
@@ -32,5 +32,20 @@ public class UserController {
     @GetMapping({"/forStudent"})
     public String forStudent(){
         return "Cette URL n'est accessible qu'à l'étudiant";
+    }
+
+    @GetMapping("/getUsers")
+    public List<User> getUsers(){
+        return userService.getUsers();
+    }
+
+    @DeleteMapping("/deleteUser")
+    public void deleteUser(@RequestParam int id){
+        userService.deleteUser(id);
+    }
+
+    @PutMapping("/updateUser")
+    public User updateUser(@RequestBody User user){
+        return userService.updateUser(user);
     }
 }
