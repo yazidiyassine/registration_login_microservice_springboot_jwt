@@ -26,11 +26,11 @@ public class UserController {
 
     @GetMapping({"/forAdmin"})
     public String forAdmin(){
-        return "This URL is only accessible to the admin";
+        return "Cette URL n'est accessible qu'à l'administrateur";
     }
 
     @GetMapping({"/forStudent"})
     public String forStudent(){
-        return "This URL is only accessible to the student";
+        return "Cette URL n'est accessible qu'à l'étudiant";
     }
 }
