@@ -11,7 +11,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int apogee;
+    private int id;
     private String userName;
     private String userFirstName;
     private String userLastName;

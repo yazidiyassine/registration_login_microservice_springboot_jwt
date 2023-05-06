@@ -17,12 +17,10 @@ import java.util.Set;
 public class DataInitializer implements CommandLineRunner {
 
     private final RoleRepository rolesRepository;
-
     private final UserRepository userRepository;
-
     private final Environment env;
-
     private final PasswordEncoder passwordEncoder;
+
     @Autowired
     public DataInitializer(UserRepository userRepository, RoleRepository rolesRepository, Environment env, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
@@ -41,6 +39,7 @@ public class DataInitializer implements CommandLineRunner {
             adminRole = new Role();
             adminRole.setRoleName("ADMIN");
             adminRole.setRoleDescription("Admin Role");
+            rolesRepository.save(adminRole); // Save Role entity first
             adminUser = new User();
             adminUser.setUserFirstName(env.getProperty("admin.userFirstName"));
             adminUser.setUserLastName(env.getProperty("admin.userLastName"));
@@ -50,8 +49,8 @@ public class DataInitializer implements CommandLineRunner {
             adminRoles.add(adminRole);
             adminUser.setRole(adminRoles);
             userRepository.save(adminUser);
-            rolesRepository.save(adminRole);
         }
+
         Role studentRole = rolesRepository.getByRoleName("STUDENT");
         if (studentRole == null){
             studentRole = new Role();

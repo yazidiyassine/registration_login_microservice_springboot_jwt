@@ -50,7 +50,7 @@ public class UserService {
    }
 
    public User updateUser(User user){
-       Optional<User> optionalUser = userRepository.findById(user.getApogee());
+       Optional<User> optionalUser = userRepository.findById(user.getId());
        User existingUser = optionalUser.orElseThrow(() -> new RuntimeException("User not found"));
 
        existingUser.setUserName(user.getUserName());
